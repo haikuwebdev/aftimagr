@@ -9,10 +9,10 @@ thought behind this silly made-up word.
 
 Technically, this plugin is a generator for getting server-side image
 management to work with the TinyMCE editor. It generates a TinyMCE plugin, a
-Rails controller, and Rails views. Hopefully it "just works" but it's designed
-along the lines of Rails' built-in scaffold generator, so it doesn't make any
-assumptions about application logic. You'll probably need to edit some files
-once you've run the generator.
+Rails controller, Rails views, and resource routes. Hopefully it "just works"
+but it's designed along the lines of Rails' built-in scaffold generator, so it
+doesn't make any assumptions about application logic. You'll probably need to
+edit some files once you've run the generator.
 
 Code Dependencies
 =================
