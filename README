@@ -19,6 +19,8 @@ Code Dependencies
 * Rails 2.1. I've only tested this with the 2.1-ish Edge Rails (2.1 has not 
   been released at this time), but I don't think there will be issues with 
   Rails 2.0 apps.
+  
+* Prototype Javasript library (comes with Rails)
 
 * TinyMCE (http://tinymce.moxiecode.com/)
 
@@ -45,7 +47,11 @@ What You Do
 
 * I like to have a public/javascripts/tiny_mce_init.js and include it via
   javascript_include_tag in my application.html.erb but this is not mandatory.
-  As long as your tinyMCE.init has what it needs, it's all good.
+  As long as your tinyMCE.init has what it needs, it's all good. Example 
+  javascript includes:
+  
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'tinymce/jscripts/tiny_mce/tiny_mce', 'tiny_mce_init' %>
 
 * The generator doesn't touch your tinyMCE.init, so you've gotta do that. Your 
   tinyMCE.init must pull in your plugin and its button to launch the dialog 
