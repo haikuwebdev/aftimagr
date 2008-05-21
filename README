@@ -1,0 +1,75 @@
+Aftimagr
+========
+
+If you pull certain letters from the phrase "Attachment Fu TinyMCE Image 
+Manager" you get the word "aftimagr," which kinda reads like a nerdy Web2.0-ish
+name should. "Aft" also means "back" and since we're talking about a "back-end" 
+image manager, that angle works too. All of this is to say that there was some 
+thought behind this silly made-up word.
+
+Technically, this thing is a generator for getting server-side image management
+to work with TinyMCE. Hopefully it "just works" but it's designed along the 
+lines of Rails' built-in scaffold generator, so it doesn't make any assumptions 
+about application logic, so you'll probably need to edit some files once you've
+run the generator.
+
+Code Dependencies
+=================
+
+* Rails 2.1. I've only tested this with the 2.1-ish Edge Rails (2.1 has not 
+  been released at this time), but I don't think there will be issues with 
+  Rails 2.0 apps.
+
+* TinyMCE (http://tinymce.moxiecode.com/)
+
+* attachment_fu plugin (http://github.com/technoweenie/attachment_fu/tree/master)
+
+* responds_to_parent plugin 
+  (http://github.com/haikuwebdev/responds_to_parent/tree/master)
+  This is a fork of the official repository with some bug fixes which need to
+  be tested and hopefully folded back into the official plugin.
+
+What You Do
+===========
+
+* You should have an attachment_fu-based model for dealing with images in
+  place. At this point the generator does not create that for you, but I'll
+  probably make that an option soon. The model should be an attachment_fu based
+  model and must provide a class method named thumbnails. (Technically the
+  model could be implemented after the generator is run.) The alternative to 
+  providing a thumbnails method is to change all the @thumbnails stuff in the
+  generated code.
+
+* TinyMCE v3 must be installed at the default location in your Rails app:
+  RAILS_ROOT/public/javascripts/tinymce
+
+* I like to have a public/javascripts/tiny_mce_init.js and include it via
+  javascript_include_tag in my application.html.erb but this is not mandatory.
+  As long as your tinyMCE.init has what it needs, it's all good.
+
+* The generator doesn't touch your tinyMCE.init, so you've gotta do that. Your 
+  tinyMCE.init must pull in your plugin and its button to launch the dialog 
+  window. It must also set the convert_urls and relative_urls options to
+  false. Refer to the TinyMCE docs for more info, but here's an example 
+  assuming the attachment_fu model is ArticleImage and we've run 
+  `script/generate aftimagr article_image`
+
+  tinyMCE.init({
+  	mode: "textareas",
+  	theme: "advanced",
+    plugins: "article_image",
+  	theme_advanced_buttons1: "bold,italic,link,unlink,bullist,numlist,code,separator,article_image",
+  	theme_advanced_buttons2: "",
+  	theme_advanced_buttons3: "",
+  	theme_advanced_toolbar_location : "top",
+  	theme_advanced_toolbar_align : "left",
+  	convert_urls: false,
+  	relative_urls: false
+  });
+
+Example
+=======
+
+script/generate aftimagr your_attachment_fu_model_name
+
+Copyright (c) 2008 TJ Stankus, released under the MIT license.

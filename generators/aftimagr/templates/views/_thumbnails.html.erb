@@ -1,0 +1,3 @@
+<%% thumbnails.each do |thumbnail| %>
+  <%%= link_to_remote image_tag(thumbnail.public_filename), :url => <%= singular_name %>_path(thumbnail.parent), :method => :get %>
+<%% end %>

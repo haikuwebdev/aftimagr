@@ -1,0 +1,5 @@
+<%%- form_tag '/<%= plural_name %>.js', :target => 'background_uploader', :id => 'background_upload_form', :multipart => true do -%>
+  <%%= file_field :<%= singular_name %>, :uploaded_data %>
+  <%%= content_tag :button, 'Upload', :type => 'submit', :id => 'upload' %>
+<%%- end -%>
+<iframe width="1" height="1" name="background_uploader" src="about:blank" style="display:none;"></iframe>

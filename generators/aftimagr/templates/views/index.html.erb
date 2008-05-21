@@ -1,0 +1,15 @@
+<%%- unless @thumbnails.empty? -%>
+  <div>
+    <%%- @thumbnails.each do |thumbnail| -%>
+      <div>
+        <%%= image_tag thumbnail.public_filename %>
+        <div>
+          <%%= link_to 'Show', <%= singular_name %>_path(thumbnail.parent) %>
+          <%%= link_to 'Delete', <%= singular_name %>_path(thumbnail.parent), :method => :delete %>
+        </div>
+      </div>
+    <%%- end -%>
+  </div>
+<%%- end -%>
+
+<div><%%= link_to 'New', new_<%= singular_name %>_path %></div>

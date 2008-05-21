@@ -1,0 +1,3 @@
+<%- self.flash.each do |key, msg| -%>
+  <%= content_tag :div, msg, :class => "flash #{key.to_s}" %>
+<%- end -%>

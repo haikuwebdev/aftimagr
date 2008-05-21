@@ -1,0 +1,33 @@
+div {
+  text-align: center;
+}
+a img {
+  border: none;
+}
+div#buttons button,
+div#buttons a {
+	background-color: #fff;
+	border: 2px solid #000;
+	color: #000;
+	font-size: 13px;
+  margin: 0 0 0 10px;
+	padding: 2px 8px;
+}
+div#buttons a {
+	padding: 3px 8px;
+	text-decoration: none;
+}
+div.flash {
+	padding: 5px 10px;
+	margin: 0 0 10px 0;
+}
+div.flash.error {
+	background-color: #cd5c5c;
+	border-bottom: 2px solid #8b0000;
+	border-top: 2px solid #8b0000;
+}
+div.flash.notice {
+	background-color: #c8f4ba;
+	border-bottom: 2px solid #009900;
+	border-top: 2px solid #009900;
+}
