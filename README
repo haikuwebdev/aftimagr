@@ -14,6 +14,18 @@ but it's designed along the lines of Rails' built-in scaffold generator, so it
 doesn't make any assumptions about application logic. You'll probably need to
 edit some files once you've run the generator.
 
+Example
+=======
+
+script/generate aftimagr attachment_fu_model_name
+
+Optional Parameters
+===================
+
+(NOT YET IMPLEMENTED)
+--with-editable-image
+This parameter will generate code for integrating with the editable-image gem.
+
 Code Dependencies
 =================
 
@@ -79,9 +91,5 @@ What You Do
   one TinyMCE plugin. To change this button, replace the gif file in
   your_tiny_mce_plugin_dir/img/your_tiny_mce_plugin.gif
 
-Example
-=======
 
-script/generate aftimagr your_attachment_fu_model_name
-
-Copyright (c) 2008 TJ Stankus, released under the MIT license.
+Copyright (c) 2008 TJ Stankus tj@haikuwebdev.com, released under the MIT license.
