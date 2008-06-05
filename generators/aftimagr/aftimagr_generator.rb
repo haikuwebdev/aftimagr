@@ -1,7 +1,5 @@
-# require 'ruby-debug'
-
 class AftimagrGenerator < Rails::Generator::NamedBase
-  # APPTODO: default_options :with_editable_image => false, :with_attachment_fu_model => false
+  default_options :with_editable_image => false
   
   attr_reader :controller_class_path,
               :controller_class_name,
@@ -11,7 +9,6 @@ class AftimagrGenerator < Rails::Generator::NamedBase
   
   def initialize(args, options = {})
     super
-    # debugger
     @controller_name = @name.pluralize
     base_name, @controller_class_path = extract_modules(@controller_name)
     @controller_class_name, @controller_underscore_name = inflect_names(base_name)
@@ -38,6 +35,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.template 'views/index.html.erb', File.join(views_dir, 'index.html.erb')
       m.template 'views/new.html.erb', File.join(views_dir, 'new.html.erb')
       m.template 'views/show.html.erb', File.join(views_dir, 'show.html.erb')
+      m.template 'views/update_js.html.erb', File.join(views_dir, 'update_js.html.erb')
       
       # TinyMCE plugin
       tinymce_plugin_dir = File.join('public/javascripts/tinymce/jscripts/tiny_mce/plugins', name)
@@ -54,16 +52,19 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.template 'tinymce_plugin/langs/en.js', File.join(tinymce_plugin_dir, 'langs', 'en.js')
       m.template 'tinymce_plugin/langs/en_dlg.js', File.join(tinymce_plugin_dir, 'langs', 'en_dlg.js')
       
-      # APPTODO: Just uncomment this before deploying.
-      m.route_resources controller_file_name
+      # Resource routes hack for getting correct output with :member option.
+      # The correct way to do this might involve a change to route_resources.
+      route_string = ":#{controller_file_name}, :member => { :update_js => :get }"
+      def route_string.to_sym; to_s; end
+      def route_string.inspect; to_s; end
+      m.route_resources route_string
     end
   end
   
   protected
   
   def banner
-    # APPTODO: Get this right.
-    "Usage: #{$0} scaffold ModelName"
+    "Usage: #{$0} aftimagr AttachmentFuModelName"
   end
   
   def views_dir
@@ -76,6 +77,13 @@ class AftimagrGenerator < Rails::Generator::NamedBase
   
   def dialog_name
     model_class_name + 'Dialog'
+  end
+  
+  def add_options!(opt)
+    opt.separator ''
+    opt.separator 'Options:'
+    opt.on("--with-editable-image", 
+           "Generate code for integrating with editable-image") { |v| options[:with_editable_image] = v }
   end
 
 end

@@ -5,6 +5,9 @@
         <%%= image_tag thumbnail.public_filename %>
         <div>
           <%%= link_to 'Show', <%= singular_name %>_path(thumbnail.parent) %>
+          <%- if options[:with_editable_image] -%>
+          <%%= link_to 'Edit', edit_<%= singular_name %>_path(thumbnail.parent) %>
+          <%- end -%>
           <%%= link_to 'Delete', <%= singular_name %>_path(thumbnail.parent), :method => :delete %>
         </div>
       </div>

@@ -1,4 +1,6 @@
 class <%= controller_class_name %>Controller < ApplicationController
+  # You may want to implement more specific security measures.
+  protect_from_forgery :except => :update
   
   # GET /<%= plural_name %>
   def index
@@ -22,22 +24,51 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= singular_name %> = <%= model_class_name %>.new(params[:<%= singular_name %>])
     respond_to do |format|
       if @<%= singular_name %>.save
-        set_flash(:notice, 'Image was successfully uploaded and saved.')
+        set_flash :notice, 'Image was successfully uploaded and saved.'
         format.html { redirect_to <%= singular_name %>_path(@<%= singular_name %>) }
         format.js { responds_to_parent { show_js } }
       else
-        set_flash(:error, 'There was an error saving the image.')
+        set_flash :error, 'There was an error saving the image.'
         format.html { render :action => :new }
         format.js { responds_to_parent { index_js } }
       end
     end
   end
   
+  <%- if options[:with_editable_image] -%>
+  # GET /<%= plural_name %>/1/edit
+  def edit
+    @<%= singular_name %> = <%= model_class_name %>.find(params[:id])
+    redirect_to Picnik.url(@<%= singular_name %>.full_filename, picnik_params)
+  end
+  
+  # PUT /<%= plural_name %>/1
+  def update
+    @<%= singular_name %> = <%= model_class_name %>.find(params[:id])
+    # Clear cached public paths for updated image
+    ActionView::Base.computed_public_paths.delete_if do |key, value|
+      key.include?(@<%= singular_name %>.public_filename)
+    end
+    if @<%= singular_name %>.update_attributes(params[:<%= singular_name %>])
+      # Avoid browser balking at XSS.
+      redirect_to :action => 'update_js', :id => @<%= singular_name %>.id
+    else
+      set_flash :error, 'There was an error updating the image.'
+      redirect_to <%= singular_name %>_path(@<%= singular_name %>)
+    end
+  end
+  
+  def update_js
+    @<%= singular_name %> = <%= model_class_name %>.find(params[:id])
+    set_flash :notice, 'Image was successfully updated.'
+  end
+  <%- end -%>
+  
   # DELETE /<%= plural_name %>/1
   def destroy
     @<%= singular_name %> = <%= model_class_name %>.find(params[:id])
     @<%= singular_name %>.destroy
-    set_flash(:notice, 'Image has been deleted.')
+    set_flash :notice, 'Image has been deleted.'
     respond_to do |format|
       format.html { redirect_to <%= plural_name %>_path }
       format.js { index_js }
@@ -67,11 +98,20 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
   
   def set_flash(key, msg)
-    if request.xhr?
-      flash.now[key] = msg
-    else
-      flash[key] = msg
-    end
+    request.xhr? ? flash.now[key] = msg : flash[key] = msg
   end
   
+  <%- if options[:with_editable_image] -%>
+  def picnik_params
+    { # required
+      :apikey => 'YOUR_API_KEY_HERE',
+      # not required by Picnik, but needed to save images back
+      :export => "http://YOUR_URL_HERE/<%= plural_name %>/#{@<%= singular_name %>.id}", 
+      :export_field => '<%= singular_name %>[uploaded_data]',
+      '_method' => 'put',
+      # not required
+      :exclude => 'in,out'
+    }
+  end
+  <%- end -%>
 end

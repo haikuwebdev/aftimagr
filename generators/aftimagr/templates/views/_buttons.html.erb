@@ -2,9 +2,7 @@
   <%%= link_to_remote 'Back', :url => <%= plural_name %>_url, :method => :get %>
   <%%= content_tag :button, 'Insert', { :type => 'button', :onclick => 'javascript:<%= dialog_name %>.insert();return false;' } %>
   <%%= link_to_remote 'Delete', :url => <%= name %>_url(image), :method => :delete %>
+  <%- if options[:with_editable_image] -%>
+  <%%= content_tag :button, 'Edit', { :type => 'button', :onclick => "javascript:<%= dialog_name %>.edit('#{edit_<%= name %>_url(image)}');" } %>
+  <%- end -%>
 </div>
-
-<%%- if false -%>
-<%%# Fix below before adding --with-editable-image option %>
-<%%= content_tag :button, 'Edit', { :type => 'button', :onclick => "javascript:EditableImageDialog.edit('#{picnik_requests_path(:filename => @image.public_filename, 'app[image_category_id]' => @image.category.id)}');" } %>
-<%%- end -%>

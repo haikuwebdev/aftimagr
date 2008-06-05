@@ -22,9 +22,16 @@ script/generate aftimagr attachment_fu_model_name
 Optional Parameters
 ===================
 
-(NOT YET IMPLEMENTED)
---with-editable-image
+--with_editable_image
+
 This parameter will generate code for integrating with the editable-image gem.
+The editable-image gem must be installed and configured in your app. See
+http://github.com/haikuwebdev/editable-image/ for info.
+
+Once you've run aftimagr with this option, you will need to edit the 
+picnik_params method created in the generated controller. If you have more than
+one controller with a picnik_params method, you'll probably want to refactor 
+that.
 
 Code Dependencies
 =================
@@ -37,7 +44,9 @@ Code Dependencies
 
 * TinyMCE (http://tinymce.moxiecode.com/)
 
-* attachment_fu plugin (http://github.com/technoweenie/attachment_fu/tree/master)
+* attachment_fu plugin (http://github.com/technoweenie/attachment_fu/) and a
+  model that the generated controller uses. (This requirement may be mitigated
+  in the future with a --with-model option.)
 
 * responds_to_parent plugin 
   (http://github.com/haikuwebdev/responds_to_parent/tree/master)
