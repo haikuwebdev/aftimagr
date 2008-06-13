@@ -92,7 +92,7 @@ class <%= controller_class_name %>Controller < ApplicationController
       page.replace_html :message_area, :partial => 'messages'
       page.replace_html :image_area, :partial => 'image', :locals => {:image => @<%= singular_name %>}
       page.replace_html :button_area, :partial => 'buttons', :locals => {:image => @<%= singular_name %>}
-      page.assign 'img_src', @<%= singular_name %>.public_filename
+      page.assign :img_src, @<%= singular_name %>.public_filename
     end
     flash.discard
   end
