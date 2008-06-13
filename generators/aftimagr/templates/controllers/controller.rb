@@ -45,6 +45,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   # PUT /<%= plural_name %>/1
   def update
     @<%= singular_name %> = <%= model_class_name %>.find(params[:id])
+    params[:<%= singular_name %>][:filename] = @<%= singular_name %>.filename
     # Clear cached public paths for updated image
     ActionView::Base.computed_public_paths.delete_if do |key, value|
       key.include?(@<%= singular_name %>.public_filename)
