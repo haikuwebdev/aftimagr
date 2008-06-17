@@ -2,6 +2,8 @@ class <%= controller_class_name %>Controller < ApplicationController
   # You may want to implement more specific security measures.
   protect_from_forgery :except => :update
   
+  before_filter :set_flash_from_params, :only => [:show, :update_js]
+  
   # GET /<%= plural_name %>
   def index
     respond_to do |format|
@@ -46,21 +48,22 @@ class <%= controller_class_name %>Controller < ApplicationController
   def update
     @<%= singular_name %> = <%= model_class_name %>.find(params[:id])
     params[:<%= singular_name %>][:filename] = @<%= singular_name %>.filename
+    
     # Clear cached public paths for updated image
     ActionView::Base.computed_public_paths.delete_if do |key, value|
       key.include?(@<%= singular_name %>.public_filename)
     end
+    
+    redirect_opts = { :id => @<%= singular_name %>.id }
+
     if @<%= singular_name %>.update_attributes(params[:<%= singular_name %>])
-      if request_from_popup?
-        # Avoid browser balking at XSS. Redirect to action that executes JS.
-        redirect_to :action => 'update_js', :id => @<%= singular_name %>.id
-      else
-        redirect_to :action => 'show', :id => @<%= singular_name %>.id
-      end
+      redirect_opts[:flash_notice] = 'Image was successfully updated.'
     else
-      set_flash :error, 'There was an error updating the image.'
-      redirect_to <%= singular_name %>_path(@<%= singular_name %>)
+      redirect_opts[:flash_error] = 'There was an error updating the image.'
     end
+
+    redirect_opts[:action] = request_from_popup? ? 'update_js' : 'show'
+    redirect_to redirect_opts    
   end
   
   def update_js
@@ -121,6 +124,15 @@ class <%= controller_class_name %>Controller < ApplicationController
   
   def request_from_popup?
     !!params[:popup]
+  end
+  
+  def set_flash_from_params
+    flash_keys = params.keys.select { |key| key.index('flash_') == 0 }
+    flash_keys.each do |key|
+      arr = key.split('_')
+      arr.delete_at(0)
+      flash[arr.join('_').to_sym] = params[key]
+    end
   end
   <%- end -%>
 end
