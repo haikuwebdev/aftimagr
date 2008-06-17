@@ -51,8 +51,12 @@ class <%= controller_class_name %>Controller < ApplicationController
       key.include?(@<%= singular_name %>.public_filename)
     end
     if @<%= singular_name %>.update_attributes(params[:<%= singular_name %>])
-      # Avoid browser balking at XSS.
-      redirect_to :action => 'update_js', :id => @<%= singular_name %>.id
+      if request_from_popup?
+        # Avoid browser balking at XSS. Redirect to action that executes JS.
+        redirect_to :action => 'update_js', :id => @<%= singular_name %>.id
+      else
+        redirect_to :action => 'show', :id => @<%= singular_name %>.id
+      end
     else
       set_flash :error, 'There was an error updating the image.'
       redirect_to <%= singular_name %>_path(@<%= singular_name %>)
@@ -104,15 +108,19 @@ class <%= controller_class_name %>Controller < ApplicationController
   
   <%- if options[:with_editable_image] -%>
   def picnik_params
-    { # required
-      :apikey => 'YOUR_API_KEY_HERE',
-      # not required by Picnik, but needed to save images back
-      :export => "http://YOUR_URL_HERE/<%= plural_name %>/#{@<%= singular_name %>.id}", 
-      :export_field => '<%= singular_name %>[uploaded_data]',
-      '_method' => 'put',
-      # not required
-      :exclude => 'in,out'
-    }
+    ret = { # required
+            :apikey => 'YOUR_API_KEY_HERE',
+            # not required by Picnik, but needed to save images back
+            :export => "http://YOUR_URL_HERE/<%= plural_name %>/#{@<%= singular_name %>.id}", 
+            :export_field => '<%= singular_name %>[uploaded_data]',
+            '_method' => 'put',
+            # not required
+            :exclude => 'in,out' }
+    request_from_popup? ? ret.merge(:popup => 'true') : ret
+  end
+  
+  def request_from_popup?
+    !!params[:popup]
   end
   <%- end -%>
 end

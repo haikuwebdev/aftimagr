@@ -38,7 +38,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.template 'views/update_js.html.erb', File.join(views_dir, 'update_js.html.erb')
       
       # TinyMCE plugin
-      tinymce_plugin_dir = File.join('public/javascripts/tinymce/jscripts/tiny_mce/plugins', name)
+      tinymce_plugin_dir = File.join('public/javascripts/tinymce/jscripts/tiny_mce/plugins', singular_name)
       m.directory(tinymce_plugin_dir)
       m.template 'tinymce_plugin/dialog.htm', File.join(tinymce_plugin_dir, 'dialog.htm')
       m.template 'tinymce_plugin/editor_plugin.js', File.join(tinymce_plugin_dir, 'editor_plugin.js')

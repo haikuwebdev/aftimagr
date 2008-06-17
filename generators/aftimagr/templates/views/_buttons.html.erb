@@ -3,6 +3,6 @@
   <%%= content_tag :button, 'Insert', { :type => 'button', :onclick => 'javascript:<%= dialog_name %>.insert();return false;' } %>
   <%%= link_to_remote 'Delete', :url => <%= name %>_url(image), :method => :delete %>
   <%- if options[:with_editable_image] -%>
-  <%%= content_tag :button, 'Edit', { :type => 'button', :onclick => "javascript:<%= dialog_name %>.edit('#{edit_<%= name %>_url(image)}');" } %>
+  <%%= content_tag :button, 'Edit', { :type => 'button', :onclick => "javascript:<%= dialog_name %>.edit('#{edit_<%= name %>_url(image, :popup => true)}');" } %>
   <%- end -%>
 </div>
