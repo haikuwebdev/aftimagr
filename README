@@ -22,7 +22,7 @@ script/generate aftimagr attachment_fu_model_name
 Optional Parameters
 ===================
 
---with_editable_image
+--with-editable-image
 
 This parameter will generate code for integrating with the editable-image gem.
 The editable-image gem must be installed and configured in your app. See

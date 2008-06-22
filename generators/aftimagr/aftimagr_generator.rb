@@ -64,7 +64,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
   protected
   
   def banner
-    "Usage: #{$0} aftimagr AttachmentFuModelName"
+    "Usage: #{$0} aftimagr attachment_fu_model_name"
   end
   
   def views_dir
