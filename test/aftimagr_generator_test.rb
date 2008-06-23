@@ -33,16 +33,19 @@ class AftimagrGeneratorTest < GeneratorTestCase
     assert_added_route_for :article_images
   end
   
-  # def test_generates_namespaced_controller
-  #   run_generator('aftimagr', %w(admin::image))
-  #   assert_generated_controller_for "admin::images"
-  # end
+  def test_generates_namespaced_controller
+    run_generator('aftimagr', %w(admin::image))
+    assert_generated_controller_for "admin::images"
+  end
   
-  # def test_generates_names_for_namespaced_controller
-  #   g = Rails::Generator::Base.instance('aftimagr', %w(admin/image))
-  #   assert_equal ['admin'], g.controller_class_path
-  #   assert_equal 'images', g.plural_name
-  #   assert_equal 'Admin::Images', g.controller_class_name
-  # end
+  def test_generates_names_for_namespaced_controller
+    namespaced_strings = %w(admin/image Admin::Image)
+    namespaced_strings.each do |namespaced_string|
+      g = Rails::Generator::Base.instance('aftimagr', [namespaced_string])
+      assert_equal 'Admin::Images', g.controller_class_name
+      assert_equal ['admin'], g.controller_class_path
+      assert_equal 'images', g.plural_name
+    end
+  end
 
 end
