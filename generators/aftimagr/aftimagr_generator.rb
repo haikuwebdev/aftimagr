@@ -24,7 +24,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       
       # Controller
       m.template 'controllers/controller.rb',
-                 File.join('app/controllers', class_path, "#{table_name}_controller.rb")
+                 File.join('app/controllers', class_path, "#{plural_name}_controller.rb")
                  
       # Views
       m.template 'views/_buttons.html.erb', File.join(views_dir, '_buttons.html.erb')
@@ -38,7 +38,6 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.template 'views/update_js.html.erb', File.join(views_dir, 'update_js.html.erb')
       
       # TinyMCE plugin
-      tinymce_plugin_dir = File.join('public/javascripts/tinymce/jscripts/tiny_mce/plugins', singular_name)
       m.directory(tinymce_plugin_dir)
       m.template 'tinymce_plugin/dialog.htm', File.join(tinymce_plugin_dir, 'dialog.htm')
       m.template 'tinymce_plugin/editor_plugin.js', File.join(tinymce_plugin_dir, 'editor_plugin.js')
@@ -69,6 +68,10 @@ class AftimagrGenerator < Rails::Generator::NamedBase
   
   def views_dir
     File.join('app/views', controller_class_path, controller_file_name)
+  end
+  
+  def tinymce_plugin_dir
+    File.join('public/javascripts/tinymce/jscripts/tiny_mce/plugins', singular_name)
   end
   
   def window_title
