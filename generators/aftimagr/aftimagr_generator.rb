@@ -23,7 +23,9 @@ class AftimagrGenerator < Rails::Generator::NamedBase
   
   def manifest
     record do |m|
-      # APPTODO: Check for class naming collisions.
+      # Check for class naming collisions.
+      m.class_collisions(controller_class_path, "#{controller_class_name}Controller")
+      m.class_collisions(class_path, "#{class_name}")
       
       m.directory(File.join('app/controllers', controller_class_path))
       m.directory(views_dir)

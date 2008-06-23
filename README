@@ -19,6 +19,15 @@ Example
 
 script/generate aftimagr attachment_fu_model_name
 
+The attachment_fu_model_name should be singular, but the generated files and
+directories will be pluralized. For example:
+
+script/generate aftimagr image
+
+creates an ImagesController, app/views/images directory, etc. At this time, 
+there is no option for producing singular names, so you'll just have to edit 
+them. (Sorry - I'd likely add this if asked.)
+
 Optional Parameters
 ===================
 
@@ -36,9 +45,8 @@ that.
 Code Dependencies
 =================
 
-* Rails 2.1. I've only tested this with the 2.1-ish Edge Rails (2.1 has not 
-  been released at this time), but I don't think there will be issues with 
-  Rails 2.0 apps.
+* Rails 2.1. I've only tested this with the Rails 2.1 , but I don't think there
+  will be issues with Rails 2.0 apps.
   
 * Prototype Javascript library (comes with Rails)
 

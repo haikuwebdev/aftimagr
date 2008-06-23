@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/test_helper'
 class AftimagrGeneratorTest < GeneratorTestCase
   
   # APPTODO: Test --with-editable-image option. Will need to dig into produced output.
-  
+
   def test_generates_names
     g = Rails::Generator::Base.instance('aftimagr', %w(product_line))
     assert_equal "product_line", g.name
@@ -47,5 +47,5 @@ class AftimagrGeneratorTest < GeneratorTestCase
       assert_equal 'images', g.plural_name
     end
   end
-
+  
 end
