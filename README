@@ -1,18 +1,32 @@
 Aftimagr
 ========
 
-If you pull certain letters from the phrase "Attachment Fu TinyMCE Image 
-Manager" you get the word "aftimagr," which kinda reads like a nerdy Web2.0-ish
-name should. "Aft" also means "back" and since we're talking about a "back-end" 
-image manager, that angle works too. All of this is to say that there was some 
-thought behind this silly made-up word.
+This plugin is a generator for getting server-side image management to work
+with the TinyMCE editor. It generates a TinyMCE plugin, a Rails controller,
+Rails views, and resource routes. Hopefully it "just works" but it's designed
+along the lines of Rails' built-in scaffold generator, so it doesn't make any
+assumptions about application logic. You'll probably need to edit some files
+once you've run the generator.
 
-Technically, this plugin is a generator for getting server-side image
-management to work with the TinyMCE editor. It generates a TinyMCE plugin, a
-Rails controller, Rails views, and resource routes. Hopefully it "just works"
-but it's designed along the lines of Rails' built-in scaffold generator, so it
-doesn't make any assumptions about application logic. You'll probably need to
-edit some files once you've run the generator.
+Dependencies
+============
+
+* Rails 2.1.
+  
+* Prototype Javascript library (comes with Rails)
+
+* TinyMCE (http://tinymce.moxiecode.com/). I've only tested this with 3.x
+  versions of TinyMCE. Assumes you've installed TinyMCE to public
+
+* attachment_fu plugin (http://github.com/technoweenie/attachment_fu/). If you
+  already have a attachment_fu model in place, you 
+
+* responds_to_parent plugin 
+  (http://github.com/haikuwebdev/responds_to_parent/tree/master)
+  This is a fork of the official responds_to_parent repository with some bug 
+  fixes.
+  
+* If you use the 
 
 Example
 =======
@@ -42,24 +56,12 @@ picnik_params method created in the generated controller. If you have more than
 one controller with a picnik_params method, you'll probably want to refactor 
 that.
 
-Code Dependencies
-=================
+--skip-model
 
-* Rails 2.1. I've only tested this with the Rails 2.1 , but I don't think there
-  will be issues with Rails 2.0 apps.
-  
-* Prototype Javascript library (comes with Rails)
+Will not generate a model or a migration.
 
-* TinyMCE (http://tinymce.moxiecode.com/)
+--with-categories
 
-* attachment_fu plugin (http://github.com/technoweenie/attachment_fu/) and a
-  model that the generated controller uses. (This requirement may be mitigated
-  in the future with a --with-model option.)
-
-* responds_to_parent plugin 
-  (http://github.com/haikuwebdev/responds_to_parent/tree/master)
-  This is a fork of the official repository with some bug fixes which need to
-  be tested and hopefully folded back into the official plugin.
 
 What You Do
 ===========

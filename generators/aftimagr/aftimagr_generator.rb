@@ -22,13 +22,20 @@ class AftimagrGenerator < Rails::Generator::NamedBase
   end
   
   def manifest
+    # APPTOD: DRY up the code in this method.
     record do |m|
       # Check for class naming collisions.
       m.class_collisions(controller_class_path, "#{controller_class_name}Controller")
       m.class_collisions(class_path, "#{class_name}")
       
+      m.directory('app/models')
       m.directory(File.join('app/controllers', controller_class_path))
       m.directory(views_dir)
+      
+      # Model
+      unless options[:skip_model]
+        m.template 'models/attfu_model.rb', "app/models/#{name}.rb"
+      end
       
       # Controller
       m.template 'controllers/controller.rb',

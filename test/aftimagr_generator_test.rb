@@ -48,4 +48,9 @@ class AftimagrGeneratorTest < GeneratorTestCase
     end
   end
   
+  def test_generates_model
+    run_generator('aftimagr', %w(article_image))
+    assert_generated_model_for :article_image
+  end
+  
 end
