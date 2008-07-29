@@ -1,8 +1,10 @@
 class <%= controller_class_name %>Controller < ApplicationController
   # You may want to implement more specific security measures.
   protect_from_forgery :except => :update
-  
+
+  <%- if options[:with_editable_image] -%>
   before_filter :set_flash_from_params, :only => [:show, :update_js]
+  <%- end -%>
   
   # GET /<%= plural_name %>
   def index
@@ -101,6 +103,7 @@ class <%= controller_class_name %>Controller < ApplicationController
       page.replace_html :image_area, :partial => 'image', :locals => {:image => @<%= singular_name %>}
       page.replace_html :button_area, :partial => 'buttons', :locals => {:image => @<%= singular_name %>}
       page.assign :img_src, @<%= singular_name %>.public_filename
+      page.assign :img_alt, @<%= singular_name %>.alt
     end
     flash.discard
   end

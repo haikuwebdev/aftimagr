@@ -4,7 +4,7 @@ var <%= dialog_name %> = {
 	init : function() {},
 
 	insert : function() {
-		img_html = '<img src="' + img_src + '" />'
+		img_html = '<img src="' + img_src + '" alt="' + img_alt + '" />'
 		tinyMCEPopup.editor.execCommand('mceInsertContent', false, img_html);
 		tinyMCEPopup.close();
 	},

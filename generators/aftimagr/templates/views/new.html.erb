@@ -1,5 +1,8 @@
+<%%= render :partial => 'messages' %>
+
 <%%- form_for(<%= model_class_name %>.new, :html => { :multipart => true }) do |f| -%>
-  <%%= f.file_field :uploaded_data %>
+  File: <%%= f.file_field :uploaded_data %><br />
+  Alt Text: <%%= f.text_field :alt %><br />
   <%%= f.submit 'Upload' %>
 <%%- end -%>
 

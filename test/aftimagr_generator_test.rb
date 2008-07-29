@@ -53,4 +53,19 @@ class AftimagrGeneratorTest < GeneratorTestCase
     assert_generated_model_for :article_image
   end
   
+  def test_does_not_generate_model
+    run_generator('aftimagr', %w(article_image --skip-model))
+    assert_skipped_model :article_image
+  end
+  
+  def test_generates_migration
+    run_generator('aftimagr', %w(article_image))
+    assert_generated_migration :create_article_images
+    assert_skipped_migration :create_article_images
+  end
+  
+  def test_does_not_generate_migration
+    # APPTODO: test_does_not_generate_migration
+  end
+  
 end

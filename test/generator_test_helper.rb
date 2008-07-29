@@ -125,6 +125,14 @@ class GeneratorTestCase < Test::Unit::TestCase
       yield body if block_given?
     end
   end
+  
+  # Asserts that the given model file was not generated.
+  # It takes the name of the model as a parameter.
+  def assert_skipped_model(name)
+    model_file = "#{RAILS_ROOT}/app/models/#{name.to_s.underscore}.rb"
+    assert !File.exist?(model_file), "should not create model #{model_file}"
+  end
+  
 
   # Asserts that the given helper was generated.
   # It takes a name or symbol without the <tt>_helper</tt> part.

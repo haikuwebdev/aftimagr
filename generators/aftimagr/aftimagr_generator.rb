@@ -1,5 +1,5 @@
 class AftimagrGenerator < Rails::Generator::NamedBase
-  default_options :with_editable_image => false
+  default_options :with_editable_image => false, :skip_model => false, :skip_migration => false
   
   attr_reader :controller_class_path,
               :controller_class_name,
@@ -35,6 +35,13 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       # Model
       unless options[:skip_model]
         m.template 'models/attfu_model.rb', "app/models/#{name}.rb"
+      end
+      
+      # Migration
+      unless options[:skip_model] || options[:skip_migration]
+        m.migration_template 'migrations/attfu_migration.rb', 'db/migrate',
+                             :assigns => { :migration_name => migration_name },
+                             :migration_file_name => "create_#{table_name}"
       end
       
       # Controller
@@ -97,11 +104,19 @@ class AftimagrGenerator < Rails::Generator::NamedBase
     model_class_name + 'Dialog'
   end
   
+  def migration_name
+    "Create#{controller_class_name}"
+  end
+  
   def add_options!(opt)
     opt.separator ''
     opt.separator 'Options:'
     opt.on("--with-editable-image", 
            "Generate code for integrating with editable-image") { |v| options[:with_editable_image] = v }
+    opt.on("--skip-migration",
+           "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
+    opt.on("--skip-model",
+           "Don't genereate a model file.") { |v| options[:skip_model] = v }
   end
 
 end

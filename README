@@ -4,9 +4,10 @@ Aftimagr
 This plugin is a generator for getting server-side image management to work
 with the TinyMCE editor. It generates a TinyMCE plugin, a Rails controller,
 Rails views, and resource routes. Hopefully it "just works" but it's designed
-along the lines of Rails' built-in scaffold generator, so it doesn't make any
-assumptions about application logic. You'll probably need to edit some files
-once you've run the generator.
+along the lines of Rails' built-in scaffold generator. It gives you bare-bones
+generated files with the expectation that you'll make changes to fit your
+needs. The generator makes as few assumptions as possible about application
+logic.
 
 Dependencies
 ============
@@ -16,18 +17,15 @@ Dependencies
 * Prototype Javascript library (comes with Rails)
 
 * TinyMCE (http://tinymce.moxiecode.com/). I've only tested this with 3.x
-  versions of TinyMCE. Assumes you've installed TinyMCE to public
+  versions of TinyMCE.
 
-* attachment_fu plugin (http://github.com/technoweenie/attachment_fu/). If you
-  already have a attachment_fu model in place, you 
+* attachment_fu plugin (http://github.com/technoweenie/attachment_fu/).
 
 * responds_to_parent plugin 
   (http://github.com/haikuwebdev/responds_to_parent/tree/master)
-  This is a fork of the official responds_to_parent repository with some bug 
-  fixes.
+  This is a fork of the official responds_to_parent repository with some
+  changes.
   
-* If you use the 
-
 Example
 =======
 
@@ -58,10 +56,18 @@ that.
 
 --skip-model
 
-Will not generate a model or a migration.
+Will not generate a model.
+
+--skip-migration
+
+Will not generate a migration.
 
 --with-categories
 
+Generates a separate ActiveRecord model for categories named
+#{model_name}Category, the migration for it, and associates it to the model. If
+used in conjunction with --skip-model, you will need to create the association
+in the attachment_fu model.
 
 What You Do
 ===========
@@ -109,6 +115,5 @@ What You Do
   especially if you run the generator more than once, thereby making more than
   one TinyMCE plugin. To change this button, replace the gif file in
   your_tiny_mce_plugin_dir/img/your_tiny_mce_plugin.gif
-
 
 Copyright (c) 2008 TJ Stankus tj@haikuwebdev.com, released under the MIT license.
