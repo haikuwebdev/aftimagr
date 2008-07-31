@@ -4,7 +4,8 @@ var <%= dialog_name %> = {
 	init : function() {},
 
 	insert : function() {
-		img_html = '<img src="' + img_src + '" alt="' + img_alt + '" />'
+	  alt = document.forms[0].alt.value;
+		img_html = '<img src="' + img_src + '" alt="' + alt + '" />';
 		tinyMCEPopup.editor.execCommand('mceInsertContent', false, img_html);
 		tinyMCEPopup.close();
 	},
@@ -17,7 +18,6 @@ var <%= dialog_name %> = {
   },
   
   show_edited_image : function(image_id) {
-    // asynchronous:true, evalScripts:true, method:'get'
     new Ajax.Request('/<%= plural_name %>/' + image_id.toString(), { evalJS:'force', method:'get' });
     return false;
   }

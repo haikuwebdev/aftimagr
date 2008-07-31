@@ -12,12 +12,13 @@
   <!-- Javascript to run initially. -->
   <script type="text/javascript">
     new Ajax.Request("/<%= plural_name %>", { method:'get' });
-    var img_src = ''; var img_alt = '';
+    var img_src = '';
   </script>
   
   <!-- We'll fill these divs in with AJAX calls. -->
   <div id="message_area"></div>  
   <div id="image_area"></div>
+  <div id="form_area"></div>
   <div id="button_area"></div>
   
 </body>

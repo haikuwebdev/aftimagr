@@ -52,6 +52,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.template 'views/_buttons.html.erb', File.join(views_dir, '_buttons.html.erb')
       m.file 'views/_image.html.erb', File.join(views_dir, '_image.html.erb')
       m.file 'views/_messages.html.erb', File.join(views_dir, '_messages.html.erb')
+      m.file 'views/_show_form.html.erb', File.join(views_dir, '_show_form.html.erb')
       m.template 'views/_thumbnails.html.erb', File.join(views_dir, '_thumbnails.html.erb')
       m.template 'views/_upload.html.erb', File.join(views_dir, '_upload.html.erb')
       m.template 'views/index.html.erb', File.join(views_dir, 'index.html.erb')

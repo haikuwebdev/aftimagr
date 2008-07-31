@@ -101,9 +101,9 @@ class <%= controller_class_name %>Controller < ApplicationController
     render :update do |page|
       page.replace_html :message_area, :partial => 'messages'
       page.replace_html :image_area, :partial => 'image', :locals => {:image => @<%= singular_name %>}
+      page.replace_html :form_area, :partial => 'show_form', :locals => {:image => @<%= singular_name %>}
       page.replace_html :button_area, :partial => 'buttons', :locals => {:image => @<%= singular_name %>}
       page.assign :img_src, @<%= singular_name %>.public_filename
-      page.assign :img_alt, @<%= singular_name %>.alt
     end
     flash.discard
   end
