@@ -5,7 +5,11 @@ var <%= dialog_name %> = {
 
 	insert : function() {
 	  alt = document.forms[0].alt.value;
-		img_html = '<img src="' + img_src + '" alt="' + alt + '" />';
+	  url = document.forms[0].url.value;
+	  img_html = '<img src="' + img_src + '" alt="' + alt + '" />';
+	  if (url.length > 0) {
+	    img_html = img_html.link(url)
+	  }
 		tinyMCEPopup.editor.execCommand('mceInsertContent', false, img_html);
 		tinyMCEPopup.close();
 	},

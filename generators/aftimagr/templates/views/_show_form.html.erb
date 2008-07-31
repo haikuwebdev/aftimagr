@@ -1,4 +1,5 @@
 <%- form_tag do -%>
-  Alt text: <%= text_field_tag :alt, image.alt %>
+  Alt text: <%= text_field_tag :alt, image.alt %><br />
   URL: <%= text_field_tag :url %>
+  <div>Example: http://www.google.com/</div>
 <%- end -%>

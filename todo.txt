@@ -1,8 +1,37 @@
-* Update README
+(See also # APPTODO items in source)
+
+* Scrollbars in TinyMCE popup.
 
 * Document requirements for attachment_fu model. Needed if you use the 
   --skip-model option.
   
-* --with-categories. Does this require a model? Can it be used alongside the
-  --skip-model? Yes, just need to document if you use --skip-model that you
-  will need to manually add the association in the model.
+* --with-categories.
+  - Generate a model and migration, setup association in attfu_model.rb. Might
+    need to sleep when generating 2 migrations so the timestamps don't get
+    duplicated.
+  - For UI, use same as staging.caltech.edu.
+  - Can it be used alongside the --skip-model? Yes, just need to document if
+    you use --skip-model that you will need to manually add the association in
+    the model.
+
+* Also generate tests for generated controller, models.
+    
+* Review and improve error messages.
+    
+* Minimal styling.
+
+* Verify, sanitize urls entered for images.
+
+* Update README
+
+===============================================================================
+Development aides
+
+* Javascript logging from within TinyMCE. Ability to toggle.
+
+===============================================================================
+Maybe Later
+
+* Add option for singular name creation. In other words instead of the default
+  article_image => ArticleImagesController, pass this option to get
+  article_image => ArticleImageController.
