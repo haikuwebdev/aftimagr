@@ -5,15 +5,18 @@ class AftimagrGeneratorTest < GeneratorTestCase
   # APPTODO: Test --with-editable-image option. Will need to dig into produced output.
 
   def test_generates_names
-    g = Rails::Generator::Base.instance('aftimagr', %w(product_line))
-    assert_equal "product_line", g.name
-    assert_equal "product_lines", g.table_name
-    assert_equal "product_lines", g.controller_underscore_name
-    assert_equal "product_lines", g.controller_file_name
-    assert_equal "ProductLine", g.model_class_name
-    assert_equal "ProductLines", g.controller_class_name
-    assert_equal [], g.controller_class_path
-    assert_equal [], g.class_path
+    # APPTODO: Fix naming with CamelCased arg, e.g., ProductLine
+    %w(product_line).each do |arg|
+      g = Rails::Generator::Base.instance('aftimagr', arg.to_a)
+      assert_equal "product_line", g.name
+      assert_equal "product_lines", g.table_name
+      assert_equal "product_lines", g.controller_underscore_name
+      assert_equal "product_lines", g.controller_file_name
+      assert_equal "ProductLine", g.model_class_name
+      assert_equal "ProductLines", g.controller_class_name
+      assert_equal [], g.controller_class_path
+      assert_equal [], g.class_path
+    end
   end
   
   def test_generates_controller

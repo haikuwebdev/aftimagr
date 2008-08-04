@@ -6,7 +6,7 @@ class <%= migration_name %> < ActiveRecord::Migration
       t.integer :width
       t.integer :parent_id
       <%- if options[:with_categories] -%>
-      t.integer <%= "#{name}_category_id" %>  
+      t.integer <%= ":#{name}_category_id" %>  
       <%- end -%>
       t.string :alt
       t.string :content_type

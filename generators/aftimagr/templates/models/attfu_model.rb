@@ -1,7 +1,6 @@
 class <%= model_class_name %> < ActiveRecord::Base
-  <%- if options[:with_categories] -%>
-    belongs_to <%= "#{name}_category" %>
-  <%- end -%>
+  <%= "belongs_to :#{name}_category" if options[:with_categories] %>
+  
   # You may want to pass other options to has_attachment.
   # See the attachment_fu README.
   has_attachment :content_type => :image,
