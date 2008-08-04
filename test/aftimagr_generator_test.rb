@@ -66,6 +66,17 @@ class AftimagrGeneratorTest < GeneratorTestCase
   
   def test_does_not_generate_migration
     # APPTODO: test_does_not_generate_migration
+    # This is broken in edge rails as of 8/1/08.
+  end
+  
+  def test_generates_category_model
+    run_generator('aftimagr', %w(article_image --with-categories))
+    assert_generated_model_for :article_image_category
+  end
+  
+  def test_does_not_generate_category_model
+    run_generator('aftimagr', %w(article_image))
+    assert_skipped_model :article_image_category
   end
   
 end

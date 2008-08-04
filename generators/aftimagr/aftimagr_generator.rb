@@ -32,12 +32,11 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.directory(File.join('app/controllers', controller_class_path))
       m.directory(views_dir)
       
-      # Model
-      unless options[:skip_model]
-        m.template 'models/attfu_model.rb', "app/models/#{name}.rb"
-      end
+      # Models
+      m.template 'models/attfu_model.rb', "app/models/#{name}.rb" unless options[:skip_model]
+      m.template 'models/category_model.rb', "app/models/#{name}_category.rb" if options[:with_categories]
       
-      # Migration
+      # Migrations
       unless options[:skip_model] || options[:skip_migration]
         m.migration_template 'migrations/attfu_migration.rb', 'db/migrate',
                              :assigns => { :migration_name => migration_name },
@@ -115,9 +114,11 @@ class AftimagrGenerator < Rails::Generator::NamedBase
     opt.on("--with-editable-image", 
            "Generate code for integrating with editable-image") { |v| options[:with_editable_image] = v }
     opt.on("--skip-migration",
-           "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
+           "Don't generate a migration for this model") { |v| options[:skip_migration] = v }
     opt.on("--skip-model",
            "Don't genereate a model file.") { |v| options[:skip_model] = v }
+    opt.on("--with-categories",
+           "Generate a category model and associate the image model with it.") { |v| options[:with_categories] = v }
   end
 
 end

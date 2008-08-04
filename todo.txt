@@ -1,10 +1,7 @@
 (See also # APPTODO items in source)
 
-* Scrollbars in TinyMCE popup.
+--- Demo Tasks
 
-* Document requirements for attachment_fu model. Needed if you use the 
-  --skip-model option.
-  
 * --with-categories.
   - Generate a model and migration, setup association in attfu_model.rb. Might
     need to sleep when generating 2 migrations so the timestamps don't get
@@ -14,13 +11,27 @@
     you use --skip-model that you will need to manually add the association in
     the model.
 
+* Minimal styling.
+
+--- After Demo Tasks
+
+* Scrollbars in TinyMCE popup.
+
+* Re-evaluate options. Make sure they make sense; think about combinations.
+
+* Change storage for --with-categories to store in a folder with category name.
+
+* Document requirements for attachment_fu model. Needed if you use the 
+  --skip-model option.
+  
 * Also generate tests for generated controller, models.
     
 * Review and improve error messages.
     
-* Minimal styling.
-
 * Verify, sanitize urls entered for images.
+
+* Code audit. I've done this piecemeal over such a long time that I need to do
+  a thorough audit for code quality and cohesiveness.
 
 * Update README
 
