@@ -15,6 +15,9 @@
 
 --- After Demo Tasks
 
+* Better way to override next_migration_string. Should only override that
+  method when generating the migration for categories.
+
 * Fix naming with CamelCased arg.
 
 * Scrollbars in TinyMCE popup.

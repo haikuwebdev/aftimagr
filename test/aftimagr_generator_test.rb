@@ -14,6 +14,9 @@ class AftimagrGeneratorTest < GeneratorTestCase
       assert_equal "product_lines", g.controller_file_name
       assert_equal "ProductLine", g.model_class_name
       assert_equal "ProductLines", g.controller_class_name
+      assert_equal "CreateProductLines", g.migration_name
+      assert_equal "CreateProductLineCategories", g.category_migration_name
+      assert_equal "product_line_categories", g.category_table_name
       assert_equal [], g.controller_class_path
       assert_equal [], g.class_path
     end
@@ -64,6 +67,7 @@ class AftimagrGeneratorTest < GeneratorTestCase
   def test_generates_migration
     run_generator('aftimagr', %w(article_image))
     assert_generated_migration :create_article_images
+    # APPTODO: The next assertion passes due to bug in Rails. Fix.
     assert_skipped_migration :create_article_images
   end
   
@@ -80,6 +84,11 @@ class AftimagrGeneratorTest < GeneratorTestCase
   def test_does_not_generate_category_model
     run_generator('aftimagr', %w(article_image))
     assert_skipped_model :article_image_category
+  end
+  
+  def test_generates_category_migration
+    run_generator('aftimagr', %w(article_image --with-categories))
+    assert_generated_migration :create_article_image_categories
   end
   
 end

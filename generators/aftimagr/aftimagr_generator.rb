@@ -1,3 +1,13 @@
+if Rails::VERSION::MAJOR >= 2 && Rails::VERSION::MINOR >= 1
+  class Rails::Generator::Commands::Base
+    protected
+    def next_migration_string(padding = 3)
+      sleep(1)
+      Time.now.utc.strftime("%Y%m%d%H%M%S") 
+    end
+  end
+end
+
 class AftimagrGenerator < Rails::Generator::NamedBase
   default_options :with_editable_image => false, :skip_model => false, :skip_migration => false
   
@@ -42,6 +52,13 @@ class AftimagrGenerator < Rails::Generator::NamedBase
                              :assigns => { :migration_name => migration_name },
                              :migration_file_name => "create_#{table_name}"
       end
+
+      if options[:with_categories] && !options[:skip_migration]
+        # sleep(1) # So we don't duplicate the timestamp of the model migration file.
+        m.migration_template 'migrations/category_migration.rb', 'db/migrate',
+                             :assigns => { :migration_name => category_migration_name },
+                             :migration_file_name => "create_#{name}_categories"
+      end
       
       # Controller
       m.template 'controllers/controller.rb',
@@ -82,6 +99,18 @@ class AftimagrGenerator < Rails::Generator::NamedBase
     end
   end
   
+  def migration_name
+    "Create#{controller_class_name}"
+  end
+  
+  def category_migration_name
+    "Create#{model_class_name}Categories"
+  end
+  
+  def category_table_name
+    "#{name}_categories"
+  end
+  
   protected
   
   def banner
@@ -102,10 +131,6 @@ class AftimagrGenerator < Rails::Generator::NamedBase
   
   def dialog_name
     model_class_name + 'Dialog'
-  end
-  
-  def migration_name
-    "Create#{controller_class_name}"
   end
   
   def add_options!(opt)
