@@ -70,6 +70,14 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.template 'views/show.html.erb', File.join(views_dir, 'show.html.erb')
       m.template 'views/update_js.html.erb', File.join(views_dir, 'update_js.html.erb')
       
+      # Categories views
+      if options[:with_categories]
+        m.template 'views/categories/edit.html.erb', File.join(categories_views_dir, 'edit.html.erb')
+        m.template 'views/categories/index.html.erb', File.join(categories_views_dir, 'index.html.erb')
+        m.template 'views/categories/new.html.erb', File.join(categories_views_dir, 'new.html.erb')
+        m.template 'views/categories/show.html.erb', File.join(categories_views_dir, 'show.html.erb')
+      end
+      
       # TinyMCE plugin
       m.directory(tinymce_plugin_dir)
       m.template 'tinymce_plugin/dialog.htm', File.join(tinymce_plugin_dir, 'dialog.htm')
@@ -102,6 +110,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
   def category_name
     name + '_category'
   end
+  alias_method :category_singular_name, :category_name
   
   def category_class_name
     class_name + 'Category'
