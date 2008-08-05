@@ -90,7 +90,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   def index_js
     <%- if options[:with_categories] -%>
     @categories = <%= model_class_name %>Category.find(:all)
-    @active_category = <%= model_class_name %>Category.default
+    @active_category = <%= model_class_name %>Category.find_by_id(params[:category]) || <%= model_class_name %>Category.default
     @thumbnails = @active_category.<%= table_name %>.thumbnails
     <%- else -%>
     @thumbnails = <%= model_class_name %>.thumbnails

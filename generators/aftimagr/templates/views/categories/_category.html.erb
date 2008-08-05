@@ -1,13 +1,8 @@
 <div class="<%%= category == @active_category ? 'active category' : 'category' %>">
   <div class="category_folder">
-    <%%= image_tag 'category.png' %>
+    <%%= link_to_remote image_tag('category.png'), :url => <%= table_name %>_url(:category => category), :method => :get %>
   </div>
   <div class="category_text">
-    <%%= category.name %>
+    <%%= link_to_remote category.name, :url => <%= table_name %>_url(:category => category), :method => :get %>
   </div>
 </div>
-
-<%%- if false -%>
-  <%%= link_to_remote image_tag('foto.png'), :url => images_url(:image_category_name => category.name), :method => :get %>
-  <%%= link_to_remote category.name, :url => images_url(:image_category_name => category.name), :method => :get %>
-<%%- end -%>
