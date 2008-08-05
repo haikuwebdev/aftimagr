@@ -2,16 +2,8 @@
 
 <%% form_for(@<%= category_singular_name %>) do |f| %>
   <%%= f.error_messages %>
-
-<% for attribute in attributes -%>
-  <p>
-    <%%= f.label :<%= attribute.name %> %><br />
-    <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
-  </p>
-<% end -%>
-  <p>
-    <%%= f.submit "Update" %>
-  </p>
+  <%%= render :partial => 'form', :locals => { :f => f } %>
+  <p><%%= f.submit "Update" %></p>
 <%% end %>
 
 <%%= link_to 'Show', @<%= category_singular_name %> %> |

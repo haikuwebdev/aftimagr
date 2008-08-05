@@ -72,6 +72,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       
       # Categories views
       if options[:with_categories]
+        m.template 'views/categories/_form.html.erb', File.join(categories_views_dir, '_form.html.erb')
         m.template 'views/categories/edit.html.erb', File.join(categories_views_dir, 'edit.html.erb')
         m.template 'views/categories/index.html.erb', File.join(categories_views_dir, 'index.html.erb')
         m.template 'views/categories/new.html.erb', File.join(categories_views_dir, 'new.html.erb')

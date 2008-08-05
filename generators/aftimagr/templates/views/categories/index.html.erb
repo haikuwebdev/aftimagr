@@ -1,21 +1,12 @@
 <h1>Listing <%= categories_plural_name %></h1>
 
 <table>
-  <tr>
-<% for attribute in attributes -%>
-    <th><%= attribute.column.human_name %></th>
-<% end -%>
-  </tr>
-
 <%% for <%= category_singular_name %> in @<%= categories_plural_name %> %>
-  <tr>
-<% for attribute in attributes -%>
-    <td><%%=h <%= category_singular_name %>.<%= attribute.name %> %></td>
-<% end -%>
-    <td><%%= link_to 'Show', <%= category_singular_name %> %></td>
-    <td><%%= link_to 'Edit', edit_<%= category_singular_name %>_path(<%= category_singular_name %>) %></td>
-    <td><%%= link_to 'Destroy', <%= category_singular_name %>, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<tr>
+  <td>Name: <%%= <%= category_singular_name %>.name %></td>
+  <td><%%= link_to 'Edit', edit_<%= category_singular_name %>_path(<%= category_singular_name %>) %></td>
+  <td><%%= link_to 'Destroy', <%= category_singular_name %>, :confirm => 'Are you sure?', :method => :delete %></td>
+</tr>
 <%% end %>
 </table>
 
