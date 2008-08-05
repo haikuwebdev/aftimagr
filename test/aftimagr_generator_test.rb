@@ -9,17 +9,31 @@ class AftimagrGeneratorTest < GeneratorTestCase
     %w(product_line).each do |arg|
       g = Rails::Generator::Base.instance('aftimagr', arg.to_a)
       assert_equal "product_line", g.name
+      assert_equal "product_line", g.file_name
       assert_equal "product_lines", g.table_name
       assert_equal "product_lines", g.controller_underscore_name
       assert_equal "product_lines", g.controller_file_name
       assert_equal "ProductLine", g.model_class_name
       assert_equal "ProductLines", g.controller_class_name
       assert_equal "CreateProductLines", g.migration_name
-      assert_equal "CreateProductLineCategories", g.category_migration_name
-      assert_equal "product_line_categories", g.category_table_name
       assert_equal [], g.controller_class_path
       assert_equal [], g.class_path
     end
+  end
+  
+  def test_generates_category_names
+    # APPTODO: Fix naming with CamelCased arg, e.g., ProductLine
+    %w(product_line).each do |arg|
+      g = Rails::Generator::Base.instance('aftimagr', arg.to_a)
+      assert_equal "product_line_category", g.category_name
+      assert_equal "CreateProductLineCategories", g.categories_migration_name
+      assert_equal "product_line_categories", g.categories_table_name
+    end
+  end
+  
+  def test_generates_namespaced_names
+    g = Rails::Generator::Base.instance('aftimagr', %w(admin::image))
+    assert_equal 'admin::image', g.name
   end
   
   def test_generates_controller
@@ -89,6 +103,25 @@ class AftimagrGeneratorTest < GeneratorTestCase
   def test_generates_category_migration
     run_generator('aftimagr', %w(article_image --with-categories))
     assert_generated_migration :create_article_image_categories
+  end
+  
+  def test_generates_categories_controller
+    run_generator('aftimagr', %w(article_image --with-categories))
+    assert_generated_controller_for :article_image_categories
+  end
+  
+  def test_generates_categories_routes
+    run_generator('aftimagr', %w(article_image --with-categories))
+    assert_added_route_for :article_image_categories
+  end
+  
+  def test_generates_namespaced_categories_controller
+    run_generator('aftimagr', %w(admin::image --with-categories))
+    assert_generated_controller_for "admin::image_categories"
+  end
+  
+  def test_generates_names_for_namespaced_categories_controller
+    # APPTODO: test_generates_names_for_namespaced_categories_controller
   end
   
 end

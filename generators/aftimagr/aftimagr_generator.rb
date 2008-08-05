@@ -1,3 +1,5 @@
+# APPTODO: Only override this if necessary, i.e., when > 1 migration is generated.
+# So we don't duplicate the timestamp of the model and categories migration files
 if Rails::VERSION::MAJOR >= 2 && Rails::VERSION::MINOR >= 1
   class Rails::Generator::Commands::Base
     protected
@@ -38,9 +40,11 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.class_collisions(controller_class_path, "#{controller_class_name}Controller")
       m.class_collisions(class_path, "#{class_name}")
       
+      # Directories
       m.directory('app/models')
       m.directory(File.join('app/controllers', controller_class_path))
       m.directory(views_dir)
+      # m.directory(categories_views_dir) if options[:with_categories]
       
       # Models
       m.template 'models/attfu_model.rb', "app/models/#{name}.rb" unless options[:skip_model]
@@ -54,15 +58,16 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       end
 
       if options[:with_categories] && !options[:skip_migration]
-        # sleep(1) # So we don't duplicate the timestamp of the model migration file.
         m.migration_template 'migrations/category_migration.rb', 'db/migrate',
-                             :assigns => { :migration_name => category_migration_name },
+                             :assigns => { :migration_name => categories_migration_name },
                              :migration_file_name => "create_#{name}_categories"
       end
       
       # Controller
       m.template 'controllers/controller.rb',
                  File.join('app/controllers', class_path, "#{plural_name}_controller.rb")
+      m.template 'controllers/categories_controller.rb',
+                 File.join('app/controllers', class_path, "#{singular_name}_categories_controller.rb")
                  
       # Views
       m.template 'views/_buttons.html.erb', File.join(views_dir, '_buttons.html.erb')
@@ -84,6 +89,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.file 'tinymce_plugin/css/aftimagr.css', File.join(tinymce_plugin_dir, 'css', "#{name}.css")
       m.directory(File.join(tinymce_plugin_dir, 'img'))
       m.file 'tinymce_plugin/img/aftimagr.gif', File.join(tinymce_plugin_dir, 'img', "#{name}.gif")
+      m.file 'tinymce_plugin/img/category.png', File.join(tinymce_plugin_dir, 'img', "category.png")
       m.directory(File.join(tinymce_plugin_dir, 'js'))
       m.template 'tinymce_plugin/js/dialog.js', File.join(tinymce_plugin_dir, 'js', 'dialog.js')
       m.directory(File.join(tinymce_plugin_dir, 'langs'))
@@ -96,6 +102,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       def route_string.to_sym; to_s; end
       def route_string.inspect; to_s; end
       m.route_resources route_string
+      m.route_resources categories_table_name
     end
   end
   
@@ -103,13 +110,23 @@ class AftimagrGenerator < Rails::Generator::NamedBase
     "Create#{controller_class_name}"
   end
   
-  def category_migration_name
+  def category_name
+    name + '_category'
+  end
+  
+  def category_class_name
+    class_name + 'Category'
+  end
+  
+  def categories_migration_name
     "Create#{model_class_name}Categories"
   end
   
-  def category_table_name
+  def categories_table_name
     "#{name}_categories"
   end
+  alias_method :categories_plural_name, :categories_table_name
+  alias_method :categories_controller_file_name, :categories_table_name
   
   protected
   
@@ -119,6 +136,10 @@ class AftimagrGenerator < Rails::Generator::NamedBase
   
   def views_dir
     File.join('app/views', controller_class_path, controller_file_name)
+  end
+  
+  def categories_views_dir
+    File.join('app/views', controller_class_path, categories_controller_file_name)
   end
   
   def tinymce_plugin_dir

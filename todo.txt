@@ -22,6 +22,13 @@
 
 * Scrollbars in TinyMCE popup.
 
+* Make some content tests, e.g., belongs_to and has_many get created for
+  --with-categories.
+
+* Split tests up into: generator, categories generator, content tests.
+  assert_generated_model_for and similar tests take a block which gets yielded
+  the contents of the file.
+
 * Re-evaluate options. Make sure they make sense; think about combinations.
 
 * Change storage for --with-categories to store in a folder with category name.
@@ -29,7 +36,8 @@
 * Document requirements for attachment_fu model. Needed if you use the 
   --skip-model option.
   
-* Also generate tests for generated controller, models.
+* Also generate tests for generated controller, models, i.e., regular Rails 
+  tests. See tests that ship with Rails.
     
 * Review and improve error messages.
     
