@@ -88,10 +88,21 @@ class <%= controller_class_name %>Controller < ApplicationController
   protected
   
   def index_js
+    <%- if options[:with_categories] -%>
+    @categories = <%= model_class_name %>Category.find(:all)
+    @active_category = <%= model_class_name %>Category.default
+    @thumbnails = @active_category.<%= table_name %>.thumbnails
+    <%- else -%>
     @thumbnails = <%= model_class_name %>.thumbnails
+    <%- end -%>
     render :update do |page|
+      <%- if options[:with_categories] -%>
+      page.replace_html :category_area, :partial => '<%= categories_table_name %>/category', :collection => @categories
+      <%- end -%>
       page.replace_html :message_area, :partial => 'messages'
       page.replace_html :image_area, :partial => 'thumbnails'
+      # APPTODO: Better way to remove html from an element.
+      page.replace_html :form_area, ''
       page.replace_html :button_area, :partial => 'upload'
     end
     flash.discard

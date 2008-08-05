@@ -31,3 +31,30 @@ div.flash.notice {
 	border-bottom: 2px solid #009900;
 	border-top: 2px solid #009900;
 }
+div#category_area {
+  float: left;
+}
+div.category_folder,
+div.category_text {
+	text-align: center;
+}
+div.category_folder {
+	margin: 5px 0 0 0;
+}
+div.category_text a {
+	color: #000000;
+	font-size: 12px;
+	text-decoration: none;
+}
+div.category_text a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+div.category {
+	margin: 0 15px;
+	width: 70px;
+}
+div.active.category {
+  /* border: 2px solid #ff6803; */
+	border: 2px solid #000000;
+}
