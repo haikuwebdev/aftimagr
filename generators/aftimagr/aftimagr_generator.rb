@@ -1,15 +1,3 @@
-# APPTODO: Only override this if necessary, i.e., when > 1 migration is generated.
-# So we don't duplicate the timestamp of the model and categories migration files
-if Rails::VERSION::MAJOR >= 2 && Rails::VERSION::MINOR >= 1
-  class Rails::Generator::Commands::Base
-    protected
-    def next_migration_string(padding = 3)
-      sleep(1)
-      Time.now.utc.strftime("%Y%m%d%H%M%S") 
-    end
-  end
-end
-
 class AftimagrGenerator < Rails::Generator::NamedBase
   default_options :with_editable_image => false, :skip_model => false, :skip_migration => false
   
@@ -58,6 +46,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       end
 
       if options[:with_categories] && !options[:skip_migration]
+        migration_with_sleep unless options[:skip_model]
         m.migration_template 'migrations/category_migration.rb', 'db/migrate',
                              :assigns => { :migration_name => categories_migration_name },
                              :migration_file_name => "create_#{name}_categories"
@@ -169,6 +158,18 @@ class AftimagrGenerator < Rails::Generator::NamedBase
            "Don't genereate a model file.") { |v| options[:skip_model] = v }
     opt.on("--with-categories",
            "Generate a category model and associate the image model with it.") { |v| options[:with_categories] = v }
+  end
+  
+  def migration_with_sleep
+    if Rails::VERSION::MAJOR >= 2 && Rails::VERSION::MINOR >= 1
+      Rails::Generator::Commands::Base.class_eval do
+        protected
+        def next_migration_string(padding = 3)
+          sleep(1)
+          Time.now.utc.strftime("%Y%m%d%H%M%S") 
+        end
+      end
+    end
   end
 
 end
