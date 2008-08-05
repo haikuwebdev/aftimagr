@@ -44,7 +44,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.directory('app/models')
       m.directory(File.join('app/controllers', controller_class_path))
       m.directory(views_dir)
-      # m.directory(categories_views_dir) if options[:with_categories]
+      m.directory(categories_views_dir) if options[:with_categories]
       
       # Models
       m.template 'models/attfu_model.rb', "app/models/#{name}.rb" unless options[:skip_model]
@@ -123,10 +123,14 @@ class AftimagrGenerator < Rails::Generator::NamedBase
   end
   
   def categories_table_name
-    "#{name}_categories"
+    "#{singular_name}_categories"
   end
   alias_method :categories_plural_name, :categories_table_name
   alias_method :categories_controller_file_name, :categories_table_name
+  
+  def categories_controller_class_name
+    model_class_name + 'Categories'
+  end
   
   protected
   

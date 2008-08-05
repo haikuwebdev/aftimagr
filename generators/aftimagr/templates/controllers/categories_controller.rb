@@ -1,4 +1,4 @@
-class <%= model_class_name %>CategoriesController < ApplicationController
+class <%= categories_controller_class_name %>Controller < ApplicationController
   # GET /<%= categories_table_name %>
   # GET /<%= categories_table_name %>.xml
   def index

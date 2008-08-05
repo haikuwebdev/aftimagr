@@ -28,6 +28,7 @@ class AftimagrGeneratorTest < GeneratorTestCase
       assert_equal "product_line_category", g.category_name
       assert_equal "CreateProductLineCategories", g.categories_migration_name
       assert_equal "product_line_categories", g.categories_table_name
+      assert_equal "product_line_categories", g.categories_controller_file_name
     end
   end
   
@@ -59,8 +60,7 @@ class AftimagrGeneratorTest < GeneratorTestCase
   end
   
   def test_generates_names_for_namespaced_controller
-    namespaced_strings = %w(admin/image Admin::Image)
-    namespaced_strings.each do |namespaced_string|
+    %w(admin/image Admin::Image).each do |namespaced_string|
       g = Rails::Generator::Base.instance('aftimagr', [namespaced_string])
       assert_equal 'Admin::Images', g.controller_class_name
       assert_equal ['admin'], g.controller_class_path
@@ -121,7 +121,13 @@ class AftimagrGeneratorTest < GeneratorTestCase
   end
   
   def test_generates_names_for_namespaced_categories_controller
-    # APPTODO: test_generates_names_for_namespaced_categories_controller
+    %w(admin/image Admin::Image).each do |namespaced_string|
+      g = Rails::Generator::Base.instance('aftimagr', [namespaced_string, '--with-categories'])
+      assert_equal 'Admin::ImageCategories', g.categories_controller_class_name
+      assert_equal ['admin'], g.controller_class_path
+      assert_equal 'image_categories', g.categories_table_name
+      # assert_equal "image_categories", g.categories_controller_file_name
+    end
   end
   
 end
