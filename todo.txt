@@ -1,18 +1,5 @@
 (See also # APPTODO items in source)
 
---- Demo Tasks
-
-* --with-categories.
-  X Generate a model and migration, setup association in attfu_model.rb. Might
-    need to sleep when generating 2 migrations so the timestamps don't get
-    duplicated.
-  - For UI, use same as staging.caltech.edu.
-  X Can it be used alongside the --skip-model? Yes, just need to document if
-    you use --skip-model that you will need to manually add the association in
-    the model.
-
-* Minimal styling.
-
 --- After Demo Tasks
 
 * Better way to override next_migration_string. Should only override that
