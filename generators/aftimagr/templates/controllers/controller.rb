@@ -80,6 +80,9 @@ class <%= controller_class_name %>Controller < ApplicationController
   # DELETE /<%= plural_name %>/1
   def destroy
     @<%= singular_name %> = <%= model_class_name %>.find(params[:id])
+    <%- if options[:with_categories] -%>
+    @active_category = @<%= singular_name %>.category
+    <%- end -%>
     @<%= singular_name %>.destroy
     set_flash :notice, 'Image has been deleted.'
     respond_to do |format|
@@ -93,7 +96,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   def index_js
     <%- if options[:with_categories] -%>
     @categories = <%= model_class_name %>Category.find(:all)
-    @active_category = <%= model_class_name %>Category.find_by_id(params[:category]) || <%= model_class_name %>Category.default
+    @active_category = @active_category || <%= model_class_name %>Category.find_by_id(params[:category]) || <%= model_class_name %>Category.default
     @thumbnails = @active_category.thumbnails
     <%- else -%>
     @thumbnails = <%= model_class_name %>.thumbnails
