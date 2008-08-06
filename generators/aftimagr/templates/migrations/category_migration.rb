@@ -4,6 +4,11 @@ class <%= categories_migration_name %> < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
+    
+    if <%= category_class_name %>.find(:all).empty?
+      cat = <%= category_class_name %>.create(:name => 'People')
+      cat.save!
+    end
   end
   
   def self.down
