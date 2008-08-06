@@ -14,15 +14,28 @@
     new Ajax.Request("/<%= plural_name %>", { method:'get' });
     var img_src = '';
   </script>
-
-  <!-- We'll fill these divs in with AJAX calls. -->
+  
   <div id="message_area"></div>
-  <%- if options[:with_categories] -%>
-  <div id="category_area"></div>
-  <%- end -%>
-  <div id="image_area"></div>
-  <div id="form_area"></div>
-  <div id="button_area"></div>
+  
+  <h1 id="aftimagr_heading">Insert an image from the server</h1>
+
+  <!-- We'll fill the divs in with AJAX calls. -->
+  <table id="aftimagr_content_area" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td class="left_column">
+        <%- if options[:with_categories] -%>
+        <div id="category_area"></div>
+        <%- else -%>
+        &nbsp;
+        <%- end -%>
+      </td>
+      <td class="right_column">
+        <div id="image_area"></div>
+        <div id="form_area"></div>
+        <div id="button_area"></div>
+      </td>
+    </tr>
+  </table>
 
 </body>
 </html>

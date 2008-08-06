@@ -4,18 +4,13 @@ div {
 a img {
   border: none;
 }
-div#buttons button,
-div#buttons a {
-	background-color: #fff;
-	border: 2px solid #000;
-	color: #000;
-	font-size: 13px;
-  margin: 0 0 0 10px;
-	padding: 2px 8px;
-}
-div#buttons a {
-	padding: 3px 8px;
-	text-decoration: none;
+h1#aftimagr_heading {
+	border-bottom: 2px solid #ff6803;
+	color: #000000;
+	font-size: 18px;
+	margin: 0 0 20px 20px;
+	padding: 5px 0;
+	width: 720px;
 }
 div.flash {
 	padding: 5px 10px;
@@ -31,30 +26,88 @@ div.flash.notice {
 	border-bottom: 2px solid #009900;
 	border-top: 2px solid #009900;
 }
-div#category_area {
-  float: left;
+table#aftimagr_content_area {
+  margin: 10px 20px;
+  width: 720px;
 }
-div.category_folder,
-div.category_text {
-	text-align: center;
+table#aftimagr_content_area td {
+  font-size: 12px;
+  vertical-align: top;
 }
-div.category_folder {
-	margin: 5px 0 0 0;
+table#aftimagr_content_area td.left_column {
+  width: 100px;
 }
-div.category_text a {
-	color: #000000;
-	font-size: 12px;
+table#aftimagr_content_area td.left_column div.category {
+  margin: 0 10px;
+  width: 80px;
+}
+table#aftimagr_content_area td.left_column div.category_folder {
+  margin: 0;
+  padding: 5px 0 0 0;
+}
+table#aftimagr_content_area td.left_column div.category_text {
+  margin: 0;
+  padding: 0 0 5px 0;
+}
+table#aftimagr_content_area td.left_column div.category_text a {
+  color: #000000;
+  font-size: 12px;
+  text-decoration: none;
+}
+table#aftimagr_content_area td.left_column div.category_text a:hover {
+  text-decoration: underline;
+}
+table#aftimagr_content_area td.left_column div.active.category {
+  border: 2px solid #ff6803;
+}
+table#aftimagr_content_area td.right_column {
+  margin: 0;
+  padding: 0;
+  width: 600px;
+}
+table#aftimagr_content_area td.right_column div#image_area {
+  background-color: #ececec;
+	border: 2px solid #666666;
+	padding: 10px;
+  width: 580px;
+}
+table.aftimagr_form td {
+  padding: 3px 0;
+}
+table.aftimagr_form td.label {
+  text-align: right;
+  width: 100px;
+}
+table.aftimagr_form td.field {
+  padding: 0 0 0 10px;
+  text-align: left;
+  width: 380px;
+}
+table.aftimagr_form td.field button#upload {
+	background-color: #ff9934;
+	border: 2px solid #ff6803;
+	font-size: 13px;
+	margin: 0 0 0 10px;
+	padding: 0 5px;
+}
+table.aftimagr_form div.example {
+  color: #666;
+  font-size: 10px;
+  text-align: left;
+}
+div#buttons {
+  margin: 10px 0 0 0;
+}
+div#buttons button,
+div#buttons a {
+	background-color: #fff;
+	border: 2px solid #000;
+	color: #000;
+	font-size: 13px;
+  margin: 0 0 0 10px;
+	padding: 2px 8px;
+}
+div#buttons a {
+	padding: 3px 8px;
 	text-decoration: none;
-}
-div.category_text a:hover {
-	color: #000000;
-	text-decoration: underline;
-}
-div.category {
-	margin: 0 15px;
-	width: 70px;
-}
-div.active.category {
-  /* border: 2px solid #ff6803; */
-	border: 2px solid #000000;
 }

@@ -1,7 +1,18 @@
 <%%- form_tag '/<%= plural_name %>.js', :target => 'background_uploader', :id => 'background_upload_form', :multipart => true do -%>
   <%%= hidden_field :post_image, :post_image_category_id, :value => @active_category.id %>
-  <%%= file_field :<%= singular_name %>, :uploaded_data %><br />
-  Alt text: <%%= text_field :<%= singular_name %>, :alt %><br />
-  <%%= content_tag :button, 'Upload', :type => 'submit', :id => 'upload' %>
+  <p>Upload an image from your computer to the <%%= @active_category.name.downcase %> category on the server.</p>
+  <table id="background_upload_fields" class="aftimagr_form" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td class="label"><%%= label :post_image, :alt, 'Alt text:' %></td>
+      <td class="field"><%%= text_field :post_image, :alt, :size => 40 %></td>
+    </tr>
+    <tr>
+      <td class="label">File:</td>
+      <td class="field">
+        <%%= file_field :post_image, :uploaded_data, :size => 35 %>
+        <%%= content_tag :button, 'Upload', :type => 'submit', :id => 'upload' %>
+      </td>
+    </tr>
+  </table>
 <%%- end -%>
 <iframe width="1" height="1" name="background_uploader" src="about:blank" style="display:none;"></iframe>
