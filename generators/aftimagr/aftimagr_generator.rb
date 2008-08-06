@@ -31,6 +31,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       # Directories
       m.directory('app/models')
       m.directory(File.join('app/controllers', controller_class_path))
+      m.directory('public/images')
       m.directory(views_dir)
       m.directory(categories_views_dir) if options[:with_categories]
       
@@ -78,6 +79,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
         m.template 'views/categories/index.html.erb', File.join(categories_views_dir, 'index.html.erb')
         m.template 'views/categories/new.html.erb', File.join(categories_views_dir, 'new.html.erb')
         m.template 'views/categories/show.html.erb', File.join(categories_views_dir, 'show.html.erb')
+        m.file 'tinymce_plugin/img/category.png', File.join('public', 'images', 'category.png')
       end
       
       # TinyMCE plugin
@@ -88,7 +90,6 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.file 'tinymce_plugin/css/aftimagr.css', File.join(tinymce_plugin_dir, 'css', "#{name}.css")
       m.directory(File.join(tinymce_plugin_dir, 'img'))
       m.file 'tinymce_plugin/img/aftimagr.gif', File.join(tinymce_plugin_dir, 'img', "#{name}.gif")
-      m.file 'tinymce_plugin/img/category.png', File.join('public', 'images', 'category.png')
       m.directory(File.join(tinymce_plugin_dir, 'js'))
       m.template 'tinymce_plugin/js/dialog.js', File.join(tinymce_plugin_dir, 'js', 'dialog.js')
       m.directory(File.join(tinymce_plugin_dir, 'langs'))
