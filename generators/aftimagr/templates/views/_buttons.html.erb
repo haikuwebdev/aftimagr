@@ -1,5 +1,9 @@
 <div id="buttons">
+  <%- if options[:with_categories] -%>
+  <%%= link_to_remote 'Back', :url => <%= plural_name %>_url(:category => @active_category), :method => :get %>
+  <%- else -%>
   <%%= link_to_remote 'Back', :url => <%= plural_name %>_url, :method => :get %>
+  <%- end -%>
   <%%= content_tag :button, 'Insert', { :type => 'button', :onclick => 'javascript:<%= dialog_name %>.insert();return false;' } %>
   <%%= link_to_remote 'Delete', :url => <%= name %>_url(image), :method => :delete %>
   <%- if options[:with_editable_image] -%>

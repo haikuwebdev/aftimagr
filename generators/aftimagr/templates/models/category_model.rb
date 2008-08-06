@@ -6,6 +6,6 @@ class <%= model_class_name %>Category < ActiveRecord::Base
   end
 
   def thumbnails
-    post_images.collect{ |image| image.thumbnails(:small) }.flatten
+    <%= plural_name %>.collect{ |image| image.thumbnails(:small) }.flatten
   end
 end

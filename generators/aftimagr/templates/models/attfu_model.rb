@@ -1,6 +1,6 @@
 class <%= model_class_name %> < ActiveRecord::Base
   <%- if options[:with_categories] -%>
-  belongs_to :category, :class_name => '<%= category_class_name %>'
+  belongs_to :category, :class_name => '<%= category_class_name %>', :foreign_key => '<%= category_name %>_id'
   <%- end -%>
   
   # You may want to pass other options to has_attachment.

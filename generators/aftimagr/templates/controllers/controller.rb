@@ -17,6 +17,9 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET /<%= plural_name %>/1
   def show
     @<%= singular_name %> = <%= model_class_name %>.find(params[:id])
+    <%- if options[:with_categories] -%>
+    @active_category = @<%= singular_name %>.category
+    <%- end -%>
     respond_to do |format|
       format.html
       format.js { show_js }
