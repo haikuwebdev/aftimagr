@@ -1,5 +1,6 @@
 class AftimagrGenerator < Rails::Generator::NamedBase
-  default_options :with_editable_image => false, :skip_model => false, :skip_migration => false
+  default_options :with_editable_image => false, :skip_model => false, 
+                  :skip_migration => false, :with_categories => false
   
   attr_reader :controller_class_path,
               :controller_class_name,
@@ -12,7 +13,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
     @controller_name = @name.pluralize
     base_name, @controller_class_path, @controller_file_path, @controller_class_nesting, @controller_class_nesting_depth = extract_modules(@controller_name)
     @controller_class_name_without_nesting, @controller_underscore_name, @controller_plural_name = inflect_names(base_name)
-    @controller_singular_name=base_name.singularize
+    @controller_singular_name = base_name.singularize
     if @controller_class_nesting.empty?
       @controller_class_name = @controller_class_name_without_nesting
     else
@@ -27,6 +28,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       # Check for class naming collisions.
       m.class_collisions(controller_class_path, "#{controller_class_name}Controller")
       m.class_collisions(class_path, "#{class_name}")
+      m.class_collisions(class_path, "#{category_class_name}")
       
       # Directories
       m.directory('app/models')
