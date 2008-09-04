@@ -46,7 +46,9 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET /<%= plural_name %>/1/edit
   def edit
     @<%= singular_name %> = <%= model_class_name %>.find(params[:id])
-    redirect_to Picnik.url(@<%= singular_name %>.full_filename, picnik_params)
+    redirect_to EditableImage::Picnik.url(@<%= singular_name %>.full_filename, picnik_params)
+  rescue EditableImage::EditableImageError => e
+    set_flash :error, e.message
   end
   
   # PUT /<%= plural_name %>/1

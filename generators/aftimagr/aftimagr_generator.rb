@@ -58,8 +58,10 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       # Controller
       m.template 'controllers/controller.rb',
                  File.join('app/controllers', class_path, "#{plural_name}_controller.rb")
+      if options[:with_categories]
       m.template 'controllers/categories_controller.rb',
                  File.join('app/controllers', class_path, "#{singular_name}_categories_controller.rb")
+      end
                  
       # Views
       m.template 'views/_buttons.html.erb', File.join(views_dir, '_buttons.html.erb')
@@ -167,7 +169,7 @@ class AftimagrGenerator < Rails::Generator::NamedBase
     opt.on("--with-editable-image", 
            "Generate code for integrating with editable-image") { |v| options[:with_editable_image] = v }
     opt.on("--skip-migration",
-           "Don't generate a migration for this model") { |v| options[:skip_migration] = v }
+           "Do not generate migrations for any models.") { |v| options[:skip_migration] = v }
     opt.on("--skip-model",
            "Don't genereate a model file.") { |v| options[:skip_model] = v }
     opt.on("--with-categories",
