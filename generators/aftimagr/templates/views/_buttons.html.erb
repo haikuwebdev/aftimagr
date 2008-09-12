@@ -1,6 +1,6 @@
 <div id="buttons">
   <%- if options[:with_categories] -%>
-  <%%= link_to_remote 'Back', :url => <%= plural_name %>_url(:category => @active_category), :method => :get %>
+  <%%= link_to_remote 'Back', :url => <%= plural_name %>_url(:category => @active_category.id), :method => :get %>
   <%- else -%>
   <%%= link_to_remote 'Back', :url => <%= plural_name %>_url, :method => :get %>
   <%- end -%>
