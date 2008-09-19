@@ -1,0 +1,5 @@
+# Uncomment and modify.
+# Path to stylesheets to be parsed by aftimagr as space delimited string.
+# Assumes the base directory /public/stylesheets
+#
+# stylesheets: "example.css application.css"

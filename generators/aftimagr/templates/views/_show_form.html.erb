@@ -12,5 +12,15 @@
         <div class="example">Example: http://www.google.com/</div>
       </td>
     </tr>
+    <%- unless AFTIMAGR_IMG_CSS_CLASSES.empty? -%>
+    <tr>
+      <td class="label">CSS class</td>
+      <td class="field">
+        <%- empty_option = '<option value=""></option>'
+            select_options = options_for_select(AFTIMAGR_IMG_CSS_CLASSES.collect { |class_name| [class_name, class_name] }) -%>
+        <%= select_tag :css_class, empty_option + select_options %>
+      </td>
+    </tr>
+    <%- end -%>
   </table>
 <%- end -%>

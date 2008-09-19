@@ -1,0 +1,1 @@
+AFTIMAGR_IMG_CSS_CLASSES = Aftimagr::Utilities.generate_img_css_classes

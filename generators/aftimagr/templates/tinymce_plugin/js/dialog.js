@@ -6,7 +6,8 @@ var <%= dialog_name %> = {
 	insert : function() {
 	  alt = document.forms[0].alt.value;
 	  url = document.forms[0].url.value;
-	  img_html = '<img src="' + img_src + '" alt="' + alt + '" />';
+	  css_class = document.forms[0].css_class.value;
+	  img_html = '<img src="' + img_src + '" alt="' + alt + '" class="' + css_class + '" />';
 	  if (url.length > 0) {
 	    img_html = img_html.link(url)
 	  }

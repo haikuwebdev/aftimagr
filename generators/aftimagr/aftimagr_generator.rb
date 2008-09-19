@@ -100,6 +100,10 @@ class AftimagrGenerator < Rails::Generator::NamedBase
       m.template 'tinymce_plugin/langs/en.js', File.join(tinymce_plugin_dir, 'langs', 'en.js')
       m.template 'tinymce_plugin/langs/en_dlg.js', File.join(tinymce_plugin_dir, 'langs', 'en_dlg.js')
       
+      # config, initializer
+      m.file('config/aftimagr.yml', 'config/aftimagr.yml')
+      m.file('config/initializers/aftimagr.rb', 'config/initializers/aftimagr.rb')
+      
       # Resource routes hack for getting correct output with :member option.
       # The correct way to do this might involve a change to route_resources.
       route_string = ":#{controller_file_name}, :member => { :update_js => :get }"
