@@ -15,8 +15,8 @@ module Aftimagr
     #     /* styles go here */
     #   }
     IMG_CLASS_RE = /img\.([A-Za-z0-9\-_]+)/
-    STAR_CLASS_RE = /\*.([A-Za-z0-9\-_]+)/
-    NO_STAR_CLASS_RE = /\A.([A-Za-z0-9\-_]+)/
+    STAR_CLASS_RE = /\*\.([A-Za-z0-9\-_]+)/
+    NO_STAR_CLASS_RE = /\A\.([A-Za-z0-9\-_]+)/
     
     def self.generate_img_css_classes
       returning img_css_classes = [] do
