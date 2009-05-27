@@ -3,11 +3,10 @@ Aftimagr
 
 This plugin is a generator for getting server-side image management to work
 with the TinyMCE editor. It generates a TinyMCE plugin, a Rails controller,
-Rails views, and resource routes. Hopefully it "just works" but it's designed
-along the lines of Rails' built-in scaffold generator. It gives you bare-bones
-generated files with the expectation that you'll make changes to fit your
-needs. The generator makes as few assumptions as possible about application
-logic.
+Rails views, and resource routes. It's designed along the lines of Rails'
+built-in scaffold generator. It gives you bare-bones generated files with the
+expectation that you'll make changes to fit your needs. The generator makes as
+few assumptions as possible about application logic.
 
 Dependencies
 ============
@@ -16,8 +15,8 @@ Dependencies
   
 * Prototype Javascript library (comes with Rails)
 
-* TinyMCE (http://tinymce.moxiecode.com/). I've only tested this with 3.x
-  versions of TinyMCE.
+* TinyMCE (http://tinymce.moxiecode.com/). Only tested with 3.x versions of 
+  TinyMCE.
 
 * attachment_fu plugin (http://github.com/technoweenie/attachment_fu/).
 
@@ -34,11 +33,11 @@ script/generate aftimagr attachment_fu_model_name
 The attachment_fu_model_name should be singular, but the generated files and
 directories will be pluralized. For example:
 
-script/generate aftimagr image
+script/generate aftimagr photo
 
-creates an ImagesController, app/views/images directory, etc. At this time, 
+creates an PhotosController, app/views/photos directory, etc. At this time, 
 there is no option for producing singular names, so you'll just have to edit 
-them. (Sorry - I'd likely add this if asked.)
+them.
 
 Optional Parameters
 ===================
@@ -73,20 +72,18 @@ What You Do
 ===========
 
 * You should have an attachment_fu-based model for dealing with images in
-  place. At this point the generator does not create that for you, but I'll
-  probably make that an option soon. The model should be an attachment_fu based
-  model and must provide a class method named thumbnails. (Technically the
-  model could be implemented after the generator is run.) The alternative to 
-  providing a thumbnails method is to change all the @thumbnails stuff in the
-  generated code.
+  place. The generator does not create that for you. The model must provide a
+  class method named thumbnails. (Technically the model could be implemented
+  after the generator is run.) The alternative to providing a thumbnails method
+  is to change all the @thumbnails stuff in the generated code.
 
 * TinyMCE v3 must be installed at the default location in your Rails app:
   RAILS_ROOT/public/javascripts/tinymce
 
 * I like to have a public/javascripts/tiny_mce_init.js and include it via
-  javascript_include_tag in my application.html.erb but this is not mandatory.
-  As long as your tinyMCE.init has what it needs, it's all good. Example 
-  javascript includes:
+  javascript_include_tag in my application layout file, but this is not
+  mandatory. As long as your tinyMCE.init has what it needs, it's all good.
+  Example javascript includes:
   
   <%= javascript_include_tag :defaults %>
   <%= javascript_include_tag 'tinymce/jscripts/tiny_mce/tiny_mce', 'tiny_mce_init' %>
@@ -116,4 +113,4 @@ What You Do
   one TinyMCE plugin. To change this button, replace the gif file in
   your_tiny_mce_plugin_dir/img/your_tiny_mce_plugin.gif
 
-Copyright (c) 2008 TJ Stankus tj@haikuwebdev.com, released under the MIT license.
+Copyright (c) 2008 TJ Stankus http://tj.stank.us, released under the MIT license.
