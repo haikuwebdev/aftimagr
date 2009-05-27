@@ -1,5 +1,10 @@
 <%%- form_tag '/<%= plural_name %>.js', :target => 'background_uploader', :id => 'background_upload_form', :multipart => true do -%>
-  <%%= hidden_field :<%= singular_name %>, :<%= singular_name %>_category_id, :value => @active_category.id %>
+  <%- if options[:with_categories] -%>
+    <%%= hidden_field :<%= singular_name %>, :<%= singular_name %>_category_id, :value => @active_category.id %>
+    <p>Upload an image from your computer to the <%%= @active_category.name.downcase %> category on the server.</p>
+  <%- else -%>
+    <p>Upload an image from your computer to the server.</p>
+  <%- end -%>
   <p>Upload an image from your computer to the <%%= @active_category.name.downcase %> category on the server.</p>
   <table id="background_upload_fields" class="aftimagr_form" border="0" cellspacing="0" cellpadding="0">
     <tr>
