@@ -20,7 +20,7 @@
 					height : 600,
 					inline : 1
 				}, {
-					plugin_url : url, // Plugin absolute URL
+					plugin_url : url // Plugin absolute URL
 				});
 			});
 

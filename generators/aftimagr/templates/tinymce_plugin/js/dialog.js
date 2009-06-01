@@ -13,7 +13,7 @@ var <%= dialog_name %> = {
 	  }
 		tinyMCEPopup.editor.execCommand('mceInsertContent', false, img_html);
 		tinyMCEPopup.close();
-	},
+	}<%- ',' if options[:with_editable_image] -%>
 
 	<%- if options[:with_editable_image] -%>
   edit : function(url) {
